@@ -6,18 +6,25 @@ import { Search } from "lucide-react";
 
 import { searchStocks } from "@/services/stocks";
 
+type Stock = {
+  symbol: string;
+  description: string;
+  type: string;
+  displaySymbol?: string;
+};
+
 type Props = {
-  onSelect: (stock: any) => void;
+  onSelect: (stock: Stock) => void;
 };
 
 export default function StockSearch({
   onSelect,
 }: Props) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] =
+    useState("");
 
-  const [results, setResults] = useState<
-    any[]
-  >([]);
+  const [results, setResults] =
+    useState<Stock[]>([]);
 
   const [loading, setLoading] =
     useState(false);
@@ -39,10 +46,11 @@ export default function StockSearch({
         await searchStocks(value);
 
       const filtered = data.filter(
-        (stock: any) =>
+        (stock: Stock) =>
           stock.symbol &&
           stock.description &&
-          stock.type === "Common Stock"
+          stock.type ===
+            "Common Stock"
       );
 
       setResults(filtered.slice(0, 5));
@@ -57,6 +65,7 @@ export default function StockSearch({
     <div className="relative">
 
       {/* INPUT */}
+
       <div className="relative">
 
         <Search
@@ -92,6 +101,7 @@ export default function StockSearch({
       </div>
 
       {/* RESULTS */}
+
       {results.length > 0 && (
         <div
           className="
@@ -110,7 +120,10 @@ export default function StockSearch({
         >
 
           {results.map(
-            (stock, index) => (
+            (
+              stock,
+              index
+            ) => (
 
               <button
                 key={`${stock.symbol}-${index}`}
@@ -141,6 +154,7 @@ export default function StockSearch({
                 <div className="flex items-center gap-4">
 
                   {/* AVATAR */}
+
                   <div className="w-11 h-11 rounded-2xl bg-[#C6FF00] text-black flex items-center justify-center font-bold text-sm">
 
                     {stock.symbol
@@ -150,6 +164,7 @@ export default function StockSearch({
                   </div>
 
                   {/* INFO */}
+
                   <div className="text-left">
 
                     <p className="font-semibold text-white">
@@ -157,7 +172,9 @@ export default function StockSearch({
                     </p>
 
                     <p className="text-sm text-zinc-500 line-clamp-1">
-                      {stock.description}
+                      {
+                        stock.description
+                      }
                     </p>
 
                   </div>
@@ -165,6 +182,7 @@ export default function StockSearch({
                 </div>
 
                 {/* TYPE */}
+
                 <div className="text-right">
 
                   <p className="text-xs text-zinc-500">
@@ -183,6 +201,7 @@ export default function StockSearch({
       )}
 
       {/* LOADING */}
+
       {loading && (
         <div className="mt-3 text-sm text-zinc-500">
           Searching...
