@@ -56,6 +56,31 @@ export default function DashboardPage() {
   const [showSortModal, setShowSortModal] =
   useState(false);
 
+  const [username, setUsername] =
+  useState("");
+
+  useEffect(() => {
+  async function getProfile() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) return;
+
+    const { data } = await supabase
+      .from("profiles")
+      .select("username")
+      .eq("id", user.id)
+      .single();
+
+    if (data) {
+      setUsername(data.username);
+    }
+  }
+
+  getProfile();
+}, []);
+
   // USER
   useEffect(() => {
     async function getUser() {
@@ -283,7 +308,7 @@ export default function DashboardPage() {
               "
             >
 
-              @
+              @{username}
               {
                 user
                   ?.user_metadata
