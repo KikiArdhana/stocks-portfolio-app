@@ -24,3 +24,54 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes confetti {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(120vh)
+      rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.animate-confetti {
+  animation: confetti 3s linear forwards;
+}
+
+@keyframes modalShow {
+  0% {
+    opacity: 0;
+    transform: scale(0.92)
+      translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1)
+      translateY(0);
+  }
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #d9ff00;
+  border: 3px solid black;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(217, 255, 0, 0.45);
+}
+
+.slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #d9ff00;
+  border: 3px solid black;
+  cursor: pointer;
+}

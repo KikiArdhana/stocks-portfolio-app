@@ -100,7 +100,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4 mt-10">
 
               <Link
-                href="/signup"
+                href="/login"
                 className="
                   h-14
                   px-8
@@ -121,25 +121,6 @@ export default function HomePage() {
 
                 <ArrowRight size={18} />
 
-              </Link>
-
-              <Link
-                href="/login"
-                className="
-                  h-14
-                  px-8
-                  rounded-2xl
-                  border
-                  border-white/10
-                  bg-white/5
-                  flex
-                  items-center
-                  justify-center
-                  hover:bg-white/10
-                  transition
-                "
-              >
-                Login
               </Link>
 
             </div>

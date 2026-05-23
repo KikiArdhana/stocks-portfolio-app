@@ -23,7 +23,7 @@ export default function CompoundPage() {
   const usdToIdr = 17645;
 
   const [amount, setAmount] =
-    useState("10000");
+    useState("");
 
   const [selectedStock, setSelectedStock] =
     useState<Stock | null>(null);
@@ -367,87 +367,318 @@ export default function CompoundPage() {
           />
 
           {selectedStock && (
-            <div
-              className="
-                mt-5
-                bg-[#D9FF00]
-                text-black
-                rounded-3xl
-                p-5
-              "
-            >
+  <div
+    className="
+      mt-4
+      bg-[#D9FF00]
+      text-black
+      rounded-2xl
+      px-4
+      py-3
+      flex
+      items-center
+      justify-between
+      gap-3
+    "
+  >
 
-              <p className="text-sm font-medium">
-                Selected Stock
-              </p>
+    {/* LEFT */}
+    <div className="flex items-center gap-3 min-w-0">
 
-              <h3 className="text-3xl font-bold mt-2 break-words">
+      {/* LOGO */}
+      <div
+        className="
+          w-12
+          h-12
+          rounded-2xl
+          bg-black
+          flex
+          items-center
+          justify-center
+          shrink-0
+          overflow-hidden
+        "
+      >
 
-                {
-                  selectedStock.description
-                }
-
-              </h3>
-
-              <p className="mt-1 font-medium">
-
-                {
-                  selectedStock.symbol
-                }
-
-              </p>
-
-            </div>
-          )}
-
-        </div>
-
-      </section>
-
-      {/* YEARS */}
-
-      <section className="px-6 mt-6">
-
-        <div
+        <img
+          src={`https://assets.parqet.com/logos/symbol/${selectedStock.symbol}?format=png`}
+          alt={selectedStock.symbol}
           className="
-            bg-[#111118]
-            rounded-[14px]
-            p-6
-            border
-            border-white/5
+            w-7
+            h-7
+            object-contain
+          "
+        />
+
+      </div>
+
+      {/* INFO */}
+      <div className="min-w-0">
+
+        <p
+          className="
+            text-[10px]
+            uppercase
+            tracking-[0.2em]
+            font-bold
+            opacity-60
           "
         >
+          Selected Stock
+        </p>
 
-          <p className="text-zinc-500 text-lg">
-            Time Horizon
-          </p>
+        <h3
+          className="
+            text-lg
+            font-bold
+            leading-tight
+            truncate
+            max-w-[170px]
+          "
+        >
+          {selectedStock.description}
+        </h3>
 
-          <h2 className="text-4xl font-bold mt-5">
-            {years} Years Ago
-          </h2>
+      </div>
 
-          <input
-            type="range"
-            min="1"
-            max="10"
-            value={years}
-            onChange={(e) =>
-              setYears(
-                Number(
-                  e.target.value
-                )
-              )
-            }
-            className="
-              w-full
-              mt-7
-              accent-[#D9FF00]
-            "
-          />
+    </div>
+
+    {/* TICKER */}
+    <div
+      className="
+        px-3
+        py-2
+        rounded-lg
+        bg-black/10
+        text-sm
+        font-bold
+        shrink-0
+      "
+    >
+      {selectedStock.symbol}
+    </div>
+
+  </div>
+)}
 
         </div>
 
       </section>
+
+    {/* YEARS */}
+<section className="px-6 mt-5">
+
+  <div
+    className="
+      relative
+      overflow-hidden
+      bg-[#111118]
+      rounded-[22px]
+      p-5
+      border
+      border-white/5
+    "
+  >
+
+    {/* GLOW */}
+    <div
+      className="
+        absolute
+        top-0
+        right-0
+        w-40
+        h-40
+        bg-[#D9FF00]/10
+        rounded-full
+        blur-3xl
+      "
+    />
+
+    {/* TOP */}
+    <div className="relative z-10 flex items-start justify-between">
+
+      <div>
+
+        <p
+          className="
+            text-zinc-500
+            text-xs
+            uppercase
+            tracking-[0.25em]
+          "
+        >
+          Time Horizon
+        </p>
+
+        <h2
+          className="
+            text-[40px]
+            font-black
+            leading-none
+            mt-3
+          "
+        >
+          {years}
+          <span className="ml-2 text-[#D9FF00]">
+            Years
+          </span>
+        </h2>
+
+        <p className="text-zinc-500 mt-2 text-sm">
+         From the past
+        </p>
+
+      </div>
+
+      {/* LEVEL STYLE BADGE */}
+      <div
+        className="
+          px-4
+          py-2
+          rounded-2xl
+          bg-[#D9FF00]
+          text-black
+          font-black
+          text-sm
+          shadow-[0_0_25px_rgba(217,255,0,0.25)]
+        "
+      >
+        {years <= 3 && "SHORT"}
+        {years > 3 &&
+          years <= 7 &&
+          "MED"}
+        {years > 7 && "LONG"}
+      </div>
+
+    </div>
+
+    {/* PROGRESS VISUAL */}
+    <div className="relative z-10 mt-7">
+
+      <div className="flex justify-between mb-3">
+
+        {[1, 3, 5, 7, 10].map(
+          (value) => (
+
+            <div
+              key={value}
+              className={`
+                text-xs
+                font-bold
+                transition-all
+                ${
+                  years >= value
+                    ? "text-[#D9FF00]"
+                    : "text-zinc-600"
+                }
+              `}
+            >
+              {value}Y
+            </div>
+
+          )
+        )}
+
+      </div>
+
+      {/* RANGE */}
+      <div className="relative">
+
+        {/* TRACK GLOW */}
+        <div
+          className="
+            absolute
+            top-1/2
+            left-0
+            -translate-y-1/2
+            h-2
+            w-full
+            rounded-full
+            bg-white/5
+          "
+        />
+
+        {/* ACTIVE TRACK */}
+        <div
+          className="
+            absolute
+            top-1/2
+            left-0
+            -translate-y-1/2
+            h-2
+            rounded-full
+            bg-[#D9FF00]
+            transition-all
+          "
+          style={{
+            width: `${
+              ((years - 1) / 9) * 100
+            }%`,
+          }}
+        />
+
+        <input
+          type="range"
+          min="1"
+          max="10"
+          value={years}
+          onChange={(e) =>
+            setYears(
+              Number(e.target.value)
+            )
+          }
+          className="
+            relative
+            z-10
+            w-full
+            appearance-none
+            bg-transparent
+            cursor-pointer
+            slider
+          "
+        />
+
+      </div>
+
+    </div>
+
+    {/* MINI ACHIEVEMENT */}
+    <div
+      className="
+        relative
+        z-10
+        mt-6
+        flex
+        items-center
+        gap-2
+      "
+    >
+
+      <div
+        className="
+          w-2
+          h-2
+          rounded-full
+          bg-[#D9FF00]
+          animate-pulse
+        "
+      />
+
+      <p className="text-xs text-zinc-500">
+
+        {years >= 7
+          ? "Long-term investor mindset unlocked"
+          : years >= 4
+          ? "Strong compound growth potential"
+          : "Short-term investment simulation"}
+
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
 
       {/* SCENARIO */}
 
@@ -544,304 +775,454 @@ export default function CompoundPage() {
       </section>
 
       {/* RESULT MODAL */}
+
 {/* RESULT MODAL */}
 
 {showResultModal &&
-  result && (
+  result && (() => {
 
-    <div
-      className="
-        fixed
-        inset-0
-        bg-black/75
-        backdrop-blur-md
-        z-[100]
-        flex
-        items-center
-        justify-center
-        p-5
-        animate-in
-        fade-in
-        duration-300
-      "
-    >
+    const isPositive =
+      result.profit >= 0;
 
-      {/* GLOW EFFECT */}
-      <div
-        className="
-          absolute
-          w-[320px]
-          h-[320px]
-          rounded-full
-          bg-[#D9FF00]/20
-          blur-3xl
-          animate-pulse
-        "
-      />
+    return (
 
       <div
         className="
-          relative
-          w-full
-          max-w-md
-          bg-[#111118]
-          border
-          border-white/5
-          rounded-[36px]
-          p-6
-          overflow-hidden
-          animate-in
-          zoom-in-95
-          slide-in-from-bottom-5
-          duration-300
+          fixed
+          inset-0
+          bg-black/80
+          backdrop-blur-md
+          z-[100]
+          flex
+          items-center
+          justify-center
+          p-5
         "
       >
 
-        {/* TOP LIGHT */}
+        {/* CONFETTI ONLY POSITIVE */}
+
+        {isPositive && (
+
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+
+            {[...Array(18)].map(
+              (_, index) => (
+
+                <div
+                  key={index}
+                  className="
+                    absolute
+                    w-2
+                    h-8
+                    rounded-full
+                    animate-confetti
+                  "
+                  style={{
+                    left: `${Math.random() * 100}%`,
+
+                    top: "-20px",
+
+                    background:
+                      [
+                        "#D9FF00",
+                        "#00FFAE",
+                        "#ffffff",
+                        "#4ADE80",
+                      ][index % 4],
+
+                    animationDelay: `${index * 0.08}s`,
+
+                    transform: `rotate(${Math.random() * 360}deg)`,
+                  }}
+                />
+
+              )
+            )}
+
+          </div>
+
+        )}
+
+        {/* GLOW */}
+
         <div
-          className="
+          className={`
             absolute
-            top-0
-            left-1/2
-            -translate-x-1/2
-            w-40
-            h-1
-            bg-[#D9FF00]
-            blur-sm
-          "
+            w-[320px]
+            h-[320px]
+            rounded-full
+            blur-3xl
+            animate-pulse
+
+            ${
+              isPositive
+                ? "bg-[#D9FF00]/20"
+                : "bg-red-500/20"
+            }
+          `}
         />
 
-        {/* CLOSE */}
-
-        <button
-          onClick={() =>
-            setShowResultModal(
-              false
-            )
-          }
-          className="
-            absolute
-            top-5
-            right-5
-            w-11
-            h-11
-            rounded-2xl
-            bg-white/5
-            hover:bg-white/10
-            transition
-            text-zinc-400
-          "
-        >
-          ✕
-        </button>
-
-        {/* STOCK */}
+        {/* CARD */}
 
         <div
           className="
-            inline-flex
-            items-center
-            gap-2
-            bg-[#D9FF00]/10
+            relative
+            w-full
+            max-w-md
+            bg-[#111118]
             border
-            border-[#D9FF00]/20
-            rounded-2xl
-            px-4
-            py-2
-            mb-5
+            border-white/5
+            rounded-[32px]
+            p-5
+            overflow-hidden
+            animate-[modalShow_.4s_ease]
           "
         >
 
+          {/* TOP LIGHT */}
+
           <div
-            className="
-              w-2
-              h-2
-              rounded-full
-              bg-[#D9FF00]
-              animate-pulse
-            "
+            className={`
+              absolute
+              top-0
+              left-1/2
+              -translate-x-1/2
+              w-40
+              h-1
+              blur-sm
+
+              ${
+                isPositive
+                  ? "bg-[#D9FF00]"
+                  : "bg-red-500"
+              }
+            `}
           />
 
-          <p className="text-[#D9FF00] font-semibold text-sm">
+          {/* CLOSE */}
 
-            {selectedStock?.symbol}
-
-          </p>
-
-        </div>
-
-        {/* TITLE */}
-
-        <p className="text-zinc-500 text-sm leading-relaxed">
-
-          Today your investment
-          would be worth
-
-        </p>
-
-        {/* VALUE */}
-
-        <h2
-          className="
-            text-[34px]
-            sm:text-[42px]
-            font-black
-            mt-5
-            leading-tight
-            break-words
-          "
-        >
-
-          {formatMoney(
-            result.currentValue
-          )}
-
-        </h2>
-
-        {/* STATS */}
-
-        <div className="grid grid-cols-2 gap-4 mt-8">
-
-          {/* PROFIT */}
-
-          <div
+          <button
+            onClick={() =>
+              setShowResultModal(false)
+            }
             className="
-              bg-white/[0.03]
-              rounded-3xl
-              p-5
-              min-w-0
+              absolute
+              top-5
+              right-5
+              w-11
+              h-11
+              rounded-2xl
+              bg-white/5
+              hover:bg-white/10
+              transition
+              text-zinc-400
             "
           >
+            ✕
+          </button>
 
-            <p className="text-zinc-500 text-sm">
-              Total Profit
-            </p>
+          {/* STATUS BADGE */}
 
-            <h3
-              className="
-                text-[16px]
-                sm:text-[22px]
-                font-bold
-                text-[#00FF99]
-                mt-3
-                leading-snug
-                break-words
-              "
+          <div
+            className={`
+              inline-flex
+              items-center
+              gap-2
+              border
+              rounded-2xl
+              px-4
+              py-2
+              mb-5
+
+              ${
+                isPositive
+                  ? "bg-[#D9FF00]/10 border-[#D9FF00]/20"
+                  : "bg-red-500/10 border-red-500/20"
+              }
+            `}
+          >
+
+            <div
+              className={`
+                w-2
+                h-2
+                rounded-full
+                animate-pulse
+
+                ${
+                  isPositive
+                    ? "bg-[#D9FF00]"
+                    : "bg-red-500"
+                }
+              `}
+            />
+
+            <p
+              className={`
+                font-semibold
+                text-sm
+
+                ${
+                  isPositive
+                    ? "text-[#D9FF00]"
+                    : "text-red-400"
+                }
+              `}
             >
 
-              +
-              {formatMoney(
-                result.profit
-              )}
+              {selectedStock?.symbol}
 
-            </h3>
+            </p>
+
+            <span className="text-lg">
+
+              {isPositive
+                ? "🎉"
+                : "📉"}
+
+            </span>
 
           </div>
 
-          {/* RETURN */}
-
-          <div
-            className="
-              bg-white/[0.03]
-              rounded-3xl
-              p-5
-              min-w-0
-            "
-          >
-
-            <p className="text-zinc-500 text-sm">
-              Return
-            </p>
-
-            <h3
-              className="
-                text-[22px]
-                sm:text-[30px]
-                font-bold
-                text-[#D9FF00]
-                mt-3
-                break-words
-                leading-tight
-              "
-            >
-
-              +
-              {result.percentage.toFixed(
-                0
-              )}
-              %
-
-            </h3>
-
-          </div>
-
-        </div>
-
-        {/* INFO */}
-
-        <div className="mt-8 pt-6 border-t border-white/5">
+          {/* TITLE */}
 
           <p className="text-zinc-500 text-sm leading-relaxed">
 
-            Based on historical stock price
+            {isPositive
+              ? "Today your investment would be worth"
+              : "This investment underperformed over time"}
 
           </p>
 
-          <div className="mt-4 flex items-center gap-2 flex-wrap">
+          {/* VALUE */}
 
-            <span className="text-white font-semibold">
+          <h2
+            className="
+              text-[30px]
+              sm:text-[38px]
+              font-black
+              mt-5
+              leading-tight
+              break-words
+            "
+          >
 
-              $
-              {result.oldPrice.toFixed(
-                2
-              )}
+            {formatMoney(
+              result.currentValue
+            )}
 
-            </span>
+          </h2>
 
-            <span className="text-zinc-500">
-              →
-            </span>
+        
+          {/* STATS */}
 
-            <span className="text-[#D9FF00] font-semibold">
+          <div className="grid grid-cols-2 gap-4 mt-8">
 
-              $
-              {result.currentPrice.toFixed(
-                2
-              )}
+            {/* PROFIT */}
 
-            </span>
+            <div
+              className={`
+                rounded-3xl
+                p-5
+                min-w-0
+                border
+
+                ${
+                  isPositive
+                    ? "bg-white/[0.03] border-[#00FF99]/10"
+                    : "bg-white/[0.03] border-red-500/10"
+                }
+              `}
+            >
+
+              <p className="text-zinc-500 text-sm">
+                Total Profit
+              </p>
+
+              <h3
+                className={`
+                  text-[16px]
+                  sm:text-[22px]
+                  font-bold
+                  mt-3
+                  leading-snug
+                  break-words
+
+                  ${
+                    isPositive
+                      ? "text-[#00FF99]"
+                      : "text-red-400"
+                  }
+                `}
+              >
+
+                {isPositive
+                  ? "+"
+                  : "-"}
+
+                {formatMoney(
+                  Math.abs(
+                    result.profit
+                  )
+                )}
+
+              </h3>
+
+            </div>
+
+            {/* RETURN */}
+
+            <div
+              className={`
+                rounded-3xl
+                p-5
+                min-w-0
+                border
+
+                ${
+                  isPositive
+                    ? "bg-white/[0.03] border-[#D9FF00]/10"
+                    : "bg-white/[0.03] border-red-500/10"
+                }
+              `}
+            >
+
+              <p className="text-zinc-500 text-sm">
+                Return
+              </p>
+
+              <h3
+                className={`
+                  text-[22px]
+                  sm:text-[30px]
+                  font-bold
+                  mt-3
+                  break-words
+                  leading-tight
+
+                  ${
+                    isPositive
+                      ? "text-[#D9FF00]"
+                      : "text-red-400"
+                  }
+                `}
+              >
+
+                {isPositive
+                  ? "+"
+                  : "-"}
+
+                {Math.abs(
+                  result.percentage
+                ).toFixed(0)}
+                %
+
+              </h3>
+
+            </div>
 
           </div>
 
-        </div>
+          {/* INFO */}
 
-        {/* FOOTER */}
+          <div className="mt-8 pt-6 border-t border-white/5">
 
-        <div
-          className="
-            mt-8
-            bg-[#D9FF00]/5
-            border
-            border-[#D9FF00]/10
-            rounded-2xl
-            px-4
-            py-3
-          "
-        >
+            <p className="text-zinc-500 text-sm leading-relaxed">
 
-          <p className="text-xs text-zinc-400 leading-relaxed">
+              Based on historical stock price
 
-            Historical calculations are based on approximate market prices and intended for simulation purposes only.
+            </p>
 
-          </p>
+            <div className="mt-4 flex items-center gap-2 flex-wrap">
+
+              <span className="text-white font-semibold">
+
+                $
+                {result.oldPrice.toFixed(
+                  2
+                )}
+
+              </span>
+
+              <span className="text-zinc-500">
+                →
+              </span>
+
+              <span
+                className={`
+                  font-semibold
+
+                  ${
+                    isPositive
+                      ? "text-[#D9FF00]"
+                      : "text-red-400"
+                  }
+                `}
+              >
+
+                $
+                {result.currentPrice.toFixed(
+                  2
+                )}
+
+              </span>
+
+            </div>
+
+          </div>
+
+          {/* DISCLAIMER */}
+
+          <div
+            className="
+              mt-8
+              bg-white/[0.03]
+              border
+              border-white/5
+              rounded-2xl
+              px-4
+              py-3
+            "
+          >
+
+            <div className="flex items-start gap-3">
+
+              <div
+                className="
+                  w-6
+                  h-6
+                  rounded-full
+                  bg-yellow-500/15
+                  text-yellow-400
+                  flex
+                  items-center
+                  justify-center
+                  text-xs
+                  shrink-0
+                  mt-0.5
+                "
+              >
+                !
+              </div>
+
+              <p className="text-xs text-zinc-400 leading-relaxed">
+
+                Historical calculations are based on approximate market prices and intended for simulation purposes only.
+
+              </p>
+
+            </div>
+
+          </div>
 
         </div>
 
       </div>
 
-    </div>
+    );
 
-)}
+  })()}
 
     </main>
   );
