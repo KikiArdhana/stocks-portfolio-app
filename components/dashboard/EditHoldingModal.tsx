@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { toast } from "sonner";
 
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase-browser";
 
 type Props = {
   holding: any;
@@ -19,6 +19,8 @@ export default function EditHoldingModal({
 }: Props) {
   const [quantity, setQuantity] =
     useState(holding.quantity);
+
+    const supabase = createClient();
 
   const [
     averagePrice,

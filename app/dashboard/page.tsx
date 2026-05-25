@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase-browser";
 import BottomNavbar from "@/components/dashboard/BottomNavbar";
 import AddHoldingModal from "@/components/dashboard/AddHoldingModal";
 import EditHoldingModal from "@/components/dashboard/EditHoldingModal";
@@ -26,6 +26,8 @@ import { toast } from "sonner";
 export default function DashboardPage() {
   const [holdings, setHoldings] =
     useState<Holding[]>([]);
+
+  const supabase = createClient();
 
   const [prices, setPrices] =
     useState<Record<string, number>>(

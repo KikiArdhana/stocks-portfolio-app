@@ -16,7 +16,7 @@ import { toast } from "sonner";
 
 import BottomNavbar from "@/components/dashboard/BottomNavbar";
 
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase-browser";
 
 type Profile = {
   username: string;
@@ -34,6 +34,7 @@ type Holding = {
 
 export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
+  const supabase = createClient();
 
   const [editing, setEditing] =
     useState(false);

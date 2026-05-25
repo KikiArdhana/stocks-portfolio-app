@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import { createHolding } from "@/services/holding";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase-browser";
 
 import StockSearch from "@/components/StockSearch";
 
@@ -17,6 +17,7 @@ export default function AddHoldingModal({
   refresh,
 }: Props) {
   const [ticker, setTicker] = useState("");
+  const supabase = createClient();
 
   const [quantity, setQuantity] =
     useState("");
