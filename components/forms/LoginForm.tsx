@@ -10,10 +10,11 @@ import { motion } from "framer-motion";
 
 import { toast } from "sonner";
 
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase-browser";
 
 export default function LoginForm() {
   const router = useRouter();
+  const supabase = createClient();
 
   const [email, setEmail] =
     useState("");

@@ -20,7 +20,7 @@ export default function BottomNavbar() {
       icon: House,
     },
     {
-      href: "/portfolio",
+      href: "/calculator",
       icon: Calculator,
     },
     {

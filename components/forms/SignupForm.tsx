@@ -9,13 +9,14 @@ import {
   EyeOff,
 } from "lucide-react";
 
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase-browser";
 
 import { toast } from "sonner";
 
 export default function SignupPage() {
   const [loading, setLoading] =
     useState(false);
+    const supabase = createClient();
 
   const [showPassword, setShowPassword] =
     useState(false);
